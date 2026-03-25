@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tomates IO - Visión + Estadística</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Outfit:wght@500;700;800&family=Sora:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="container dashboard">
+      <section class="panel panel-control">
+        <div class="brand-block">
+          <img src="/static/logo-transparente.png" alt="Logo UTN Facultad Regional Buenos Aires" class="brand-logo" />
+        </div>
+        <h1>Análisis de Tomates en Cinta</h1>
+        <p class="subtitle">
+          Prof. Rodrigo Maranzana<br />
+          Investigación Operativa I4051
+        </p>
+
+        <form id="upload-form" class="control-form">
+          <label>
+            Video fuente
+            <div class="file-picker">
+              <input type="file" id="video" name="video" accept="video/*" required />
+              <label for="video" class="file-picker-trigger">
+                <span class="file-picker-button">Seleccionar video</span>
+                <span id="video-file-name" class="file-picker-name">Ningún archivo seleccionado</span>
+              </label>
+            </div>
+          </label>
+
+          <div class="submit-slot">
+            <button id="submit-button" type="submit">Procesar video</button>
+            <div id="progress-shell" class="progress-shell" hidden>
+              <div class="progress-meta">
+                <span id="progress-label">Procesando video...</span>
+                <span id="progress-value">0%</span>
+              </div>
+              <div class="progress-track">
+                <div id="progress-fill" class="progress-fill"></div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel panel-video">
+        <div class="panel-header">
+          <h2>Video Procesado</h2>
+          <span class="panel-tag">16:9</span>
+        </div>
+        <div class="video-stage" id="video-stage">
+          <video id="video-player" controls preload="metadata"></video>
+          <canvas id="overlay-canvas"></canvas>
+          <div id="video-placeholder" class="video-placeholder">
+            <div>
+              <strong>No se ha procesado nada</strong>
+              <p>Procesa un video para mostrar overlays, conteo y detecciones sincronizadas.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel panel-table">
+        <div class="panel-header panel-header-split">
+          <div>
+            <h2>Tomates Contados</h2>
+            <p class="panel-copy">Eventos confirmados al cruzar la linea central.</p>
+          </div>
+          <a id="download" href="#" target="_blank" rel="noopener noreferrer">Descargar CSV</a>
+        </div>
+        <div class="table-wrapper">
+          <table id="table">
+            <thead>
+              <tr>
+                <th>Track</th>
+                <th>Tiempo cruce (s)</th>
+                <th>Diametro (px)</th>
+                <th>Diametro (mm)</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel panel-metrics">
+        <div class="panel-header">
+          <h2>Métricas Generales</h2>
+        </div>
+        <div class="metrics-grid">
+          <article>
+            <span class="metric-label">Tomates contados</span>
+            <strong id="metric-count">0</strong>
+          </article>
+          <article>
+            <span class="metric-label">Media diámetro</span>
+            <strong id="metric-mean">-</strong>
+            <small id="metric-mean-px">-</small>
+          </article>
+          <article>
+            <span class="metric-label">Diámetro máximo</span>
+            <strong id="metric-max">-</strong>
+            <small id="metric-max-px">-</small>
+          </article>
+          <article>
+            <span class="metric-label">Diámetro mínimo</span>
+            <strong id="metric-min">-</strong>
+            <small id="metric-min-px">-</small>
+          </article>
+          <article class="metric-wide">
+            <span class="metric-label">Desvío estándar</span>
+            <strong id="metric-std">-</strong>
+            <small id="metric-std-px">-</small>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel panel-histogram">
+        <div class="panel-header">
+          <h2>Histograma de Diámetros</h2>
+        </div>
+        <canvas id="histogram-canvas"></canvas>
+        <p id="histogram-caption" class="chart-caption">
+          El histograma se actualiza a medida que los tomates cruzan la línea de conteo.
+        </p>
+      </section>
+    </main>
+
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>
