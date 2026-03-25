@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
-from pathlib import Path
 from typing import Any, Optional, Union
 
 from math import hypot
@@ -289,11 +288,3 @@ def process_job(job_id: str) -> None:
             error=str(exc),
             updated_at=_utc_now(),
         )
-    finally:
-        # Clean up uploaded video to avoid accumulating files on disk
-        try:
-            vp = Path(video_path)
-            if vp.exists() and str(vp.parent).replace("\\", "/").endswith("uploads"):
-                vp.unlink(missing_ok=True)
-        except Exception:
-            pass
