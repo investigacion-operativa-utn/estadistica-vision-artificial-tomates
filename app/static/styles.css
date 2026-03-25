@@ -38,6 +38,7 @@ body {
 .container {
 	width: min(1620px, 97vw);
 	height: 100vh;
+	min-height: 600px;
 	margin: 0 auto;
 	padding: 18px;
 	display: grid;
@@ -46,8 +47,8 @@ body {
 
 .dashboard {
 	gap: 16px;
-	grid-template-columns: minmax(280px, 0.95fr) minmax(540px, 1.55fr) minmax(360px, 1.05fr);
-	grid-template-rows: minmax(320px, 0.92fr) minmax(280px, 0.78fr);
+	grid-template-columns: minmax(260px, 0.95fr) minmax(480px, 1.55fr) minmax(320px, 1.05fr);
+	grid-template-rows: minmax(260px, 0.92fr) minmax(220px, 0.78fr);
 	grid-template-areas:
 		"control video table"
 		"metrics histogram table";
@@ -513,14 +514,40 @@ tbody tr:hover {
 }
 
 @media (max-width: 1260px) {
+	.container {
+		height: auto;
+		min-height: 100vh;
+		overflow: visible;
+	}
+
+	body {
+		overflow: auto;
+	}
+
 	.dashboard {
-		grid-template-columns: minmax(280px, 1fr) minmax(360px, 1.2fr);
+		grid-template-columns: minmax(260px, 1fr) minmax(360px, 1.4fr);
 		grid-template-rows: auto auto auto auto;
 		grid-template-areas:
 			"control video"
 			"metrics video"
-			"histogram table"
-			"histogram table";
+			"histogram histogram"
+			"table table";
+	}
+
+	.panel-table {
+		max-height: 60vh;
+	}
+}
+
+@media (max-height: 800px) and (min-width: 1261px) {
+	.container {
+		height: auto;
+		min-height: 100vh;
+		overflow: visible;
+	}
+
+	body {
+		overflow: auto;
 	}
 }
 
@@ -533,6 +560,7 @@ tbody tr:hover {
 		width: min(96vw, 100%);
 		padding: 14px;
 		height: auto;
+		min-height: unset;
 		overflow: visible;
 	}
 
