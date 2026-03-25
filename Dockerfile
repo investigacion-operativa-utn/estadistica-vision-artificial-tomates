@@ -8,8 +8,8 @@ RUN apt-get update && \
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt && \
-    pip uninstall -y opencv-python 2>/dev/null; \
-    pip install --no-cache-dir opencv-python-headless==4.11.0.86
+    pip uninstall -y opencv-python opencv-python-headless 2>/dev/null; true && \
+    pip install --no-cache-dir --force-reinstall opencv-python-headless==4.11.0.86
 
 COPY . .
 
